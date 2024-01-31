@@ -1,16 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
+  const navigate = useNavigate();
   const [formData, setformData] = useState({});
   const [error, seterror] = useState(false);
   const [loading, setloading] = useState(false);
 
   const handleChange = (e) => {
     setformData({ ...formData, [e.target.id]: e.target.value })
-    console.log(formData);
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +30,7 @@ const SignUp = () => {
         seterror(true);
         return;
       }
+      navigate('/signin');
     } catch (error) {
       setloading(false);
       seterror(true);
