@@ -1,22 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 const SignIn = () => {
 
-  const navigate = useNavigate();
   const [formData, setformData] = useState({});
-  const [error, seterror] = useState(false);
-  const [loading, setloading] = useState(false);
-
+  const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setformData({ ...formData, [e.target.id]: e.target.value })
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setloading(true);
-      seterror(false);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -25,15 +27,14 @@ const SignIn = () => {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-      setloading(false);
       if (data.success === false) {
-        seterror(true);
+        dispatch(signInFailure(data));
         return;
       }
+      dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
-      setloading(false);
-      seterror(true);
+      dispatch(signInFailure(error));
     }
 
   };
@@ -44,7 +45,6 @@ const SignIn = () => {
         <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' />
         <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' />
         <button className=' bg-slate-700 p-3 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
-        {/* <button className=' bg-red-700 p-3 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80'>google</button> */}
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Not have an account?</p>
@@ -52,7 +52,7 @@ const SignIn = () => {
           <span className='text-blue-500'>Sign up</span>
         </Link>
       </div>
-      <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
+      <p className='text-red-700 mt-5'>{error ? error.message || 'Something went wrong!' : ""}</p>
     </div>
   )
 }
