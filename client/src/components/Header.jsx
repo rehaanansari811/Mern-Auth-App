@@ -8,7 +8,7 @@ const Header = () => {
         <div className='bg-slate-200'>
             <nav className='flex justify-between items-center max-w-6xl mx-auto p-3'>
                 <Link to="/">
-                    <h1 className='font-bold text-2xl'>Auth App</h1>
+                    <h1 className='font-bold text-xl'>Auth App</h1>
                 </Link>
                 <ul className='flex gap-4 items-center'>
                     <Link to="/"><li>Home</li></Link>
