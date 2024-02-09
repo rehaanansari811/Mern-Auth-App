@@ -46,7 +46,7 @@ const SignIn = () => {
         <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' />
         <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' />
         <button className=' bg-slate-700 p-3 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
-        <OAuth/>
+        <OAuth />
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Not have an account?</p>
