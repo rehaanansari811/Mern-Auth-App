@@ -9,7 +9,7 @@ const Header = () => {
             <div className=''>
             <nav className='bg-white rounded-2xl flex justify-between items-center max-w-6xl mx-auto p-3 '>
                 <Link to="/">
-                    <h1 className='font-bold text-2xl italic'>Code Blog's</h1>
+                    <h1 className='font-bold text-2xl italic'>Rehaan Blog's</h1>
                 </Link>
                 <ul className='flex gap-4 items-center font-semibold italic text-[18px]'>
                     <Link to="/"><li>Home</li></Link>
